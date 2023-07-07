@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ISongRepository extends JpaRepository<Song, Long> {
-    @Query(value = "select * from song  inner join singer on song.singer_id = singer.id" +
+    @Query(value = "select song.*,singer.name from song  inner join singer on song.singer_id = singer.id" +
             " where song.name like LOWER(:name) or singer.name like LOWER(:name)", nativeQuery = true)
-    Page<Song> searchByName(@Param("name") String songName, Pageable pageable);
+    Page<Song> searchByName(@Param("name") String name, Pageable pageable);
 }

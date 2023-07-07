@@ -43,6 +43,6 @@ public class SongService implements ISongService {
 
     @Override
     public Page<Song> searchByName(String name, Pageable pageable) {
-        return iSongRepository.searchByName(name, pageable);
+        return iSongRepository.searchByName("%" + name + "%", pageable);
     }
 }
