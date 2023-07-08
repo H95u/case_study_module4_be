@@ -28,7 +28,7 @@ public class SongPlaylistController {
     String thumbnail;
 
     @GetMapping
-    public ResponseEntity<Page<SongPlaylist>> finAll(@PageableDefault(value = 8)
+    public ResponseEntity<Page<SongPlaylist>> finAll(@PageableDefault(value = 12)
                                                      Pageable pageable) {
         return new ResponseEntity<>(songPlaylistService.findByPage(pageable), HttpStatus.OK);
     }
