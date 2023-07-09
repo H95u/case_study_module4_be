@@ -2,6 +2,7 @@ package com.example.cs.controller;
 
 import com.example.cs.model.UserPlaylist;
 import com.example.cs.model.dto.PlaylistSongsDTO;
+import com.example.cs.model.dto.UserPlaylistDTO;
 import com.example.cs.service.IUserPlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,8 +29,8 @@ public class UserPlaylistController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<UserPlaylist>> findOne(@PathVariable Long id) {
-        return new ResponseEntity<>(userPlaylistService.findOne(id), HttpStatus.OK);
+    public ResponseEntity<UserPlaylistDTO> findOne(@PathVariable Long id) {
+        return new ResponseEntity<>(userPlaylistService.getDetailUserPlayList(id), HttpStatus.OK);
     }
 
     @PostMapping

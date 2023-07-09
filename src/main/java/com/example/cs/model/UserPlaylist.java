@@ -3,7 +3,6 @@ package com.example.cs.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -15,7 +14,4 @@ public class UserPlaylist {
 
     @OneToOne
     private User user;
-
-    @ManyToMany
-    private List<Song> songs;
 }
