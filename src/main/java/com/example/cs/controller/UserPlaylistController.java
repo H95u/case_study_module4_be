@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,7 +25,7 @@ public class UserPlaylistController {
 
 
     @GetMapping
-    public ResponseEntity<Page<UserPlaylist>> findAll(@PageableDefault(value = 10)Pageable pageable) {
+    public ResponseEntity<Page<UserPlaylist>> findAll(@PageableDefault(value = 10) Pageable pageable) {
         return new ResponseEntity<>(userPlaylistService.findAllByPage(pageable), HttpStatus.OK);
     }
 
@@ -34,7 +35,7 @@ public class UserPlaylistController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestPart UserPlaylist userPlaylist) {
+    public ResponseEntity<?> create(@RequestBody UserPlaylist userPlaylist) {
         userPlaylistService.save(userPlaylist);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
@@ -72,5 +73,14 @@ public class UserPlaylistController {
     public ResponseEntity<?> removeSongToPlaylist(@RequestBody PlaylistSongsDTO playlistSongsDTO) {
         userPlaylistService.removeSongToPlaylist(playlistSongsDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<UserPlaylist>> findByUserId(@PathVariable Long id) {
+        List<UserPlaylist> userPlaylists = userPlaylistService.findByUserId(id);
+        if (userPlaylists.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(userPlaylists, HttpStatus.OK);
     }
 }

@@ -29,6 +29,7 @@ public class UserPlaylistService implements IUserPlaylistService {
     private IUserPlaylistSongsRepository userPlaylistSongsRepository;
     @Autowired
     private ISongRepository songRepository;
+
     @Override
     public List<UserPlaylist> findAll() {
         return userPlaylistRepository.findAll();
@@ -104,4 +105,10 @@ public class UserPlaylistService implements IUserPlaylistService {
             userPlaylistSongsRepository.delete(entity.get());
         }
     }
+
+    @Override
+    public List<UserPlaylist> findByUserId(Long userId) {
+        return userPlaylistRepository.findUserPlaylistByUserId(userId);
+    }
+
 }
