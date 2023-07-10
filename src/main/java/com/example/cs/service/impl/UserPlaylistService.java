@@ -100,12 +100,8 @@ public class UserPlaylistService implements IUserPlaylistService {
     }
 
     @Override
-    public void removeSongToPlaylist(PlaylistSongsDTO playlistSong) {
-        Optional<UserPlaylistSongs> entity = userPlaylistSongsRepository.findByUserPlaylistIdAndSongsId(
-                playlistSong.getPlaylistId(), playlistSong.getSongId());
-        if (entity.isPresent()) {
-            userPlaylistSongsRepository.delete(entity.get());
-        }
+    public void removeSongToPlaylist(Long id) {
+        userPlaylistRepository.deleteSongOfPlaylist(id);
     }
 
     @Override
@@ -113,4 +109,8 @@ public class UserPlaylistService implements IUserPlaylistService {
         return userPlaylistRepository.findUserPlaylistByUserId(userId);
     }
 
+    @Override
+    public void deletePlaylist(Long userId) {
+        userPlaylistRepository.deletePlaylist(userId);
+    }
 }

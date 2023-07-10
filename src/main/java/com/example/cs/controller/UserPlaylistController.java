@@ -62,6 +62,7 @@ public class UserPlaylistController {
     public ResponseEntity<Optional<UserPlaylist>> delete(@PathVariable Long id) {
         Optional<UserPlaylist> userPlaylistOptional = userPlaylistService.findOne(id);
         if (userPlaylistOptional.isPresent()) {
+            userPlaylistService.deletePlaylist(id);
             userPlaylistService.delete(id);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } else {
@@ -69,9 +70,9 @@ public class UserPlaylistController {
         }
     }
 
-    @DeleteMapping("/delete-song")
-    public ResponseEntity<?> removeSongToPlaylist(@RequestBody PlaylistSongsDTO playlistSongsDTO) {
-        userPlaylistService.removeSongToPlaylist(playlistSongsDTO);
+    @DeleteMapping("/delete-song/{id}")
+    public ResponseEntity<?> removeSongToPlaylist(@PathVariable Long id) {
+        userPlaylistService.removeSongToPlaylist(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

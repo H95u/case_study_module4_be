@@ -18,4 +18,16 @@ public interface IUserPlaylistRepository extends JpaRepository<UserPlaylist, Lon
     @Modifying
     @Query(value = "INSERT INTO user_playlist_song (user_playlist_id, song_id) VALUES (:userPlaylistId, :songId)", nativeQuery = true)
     void addSongToPlaylist(@Param("userPlaylistId") Long userPlaylistId, @Param("songId") Long songId);
+
+    @Modifying
+    @Query(value = "delete\n" +
+            "from user_playlist_song\n" +
+            "where user_playlist_id = :id", nativeQuery = true)
+    void deletePlaylist(@Param("id") Long userPlaylistId);
+
+    @Modifying
+    @Query(value = "delete from user_playlist_song where song_id = :id", nativeQuery = true)
+    void deleteSongOfPlaylist(@Param("id") Long songId);
+
+
 }
