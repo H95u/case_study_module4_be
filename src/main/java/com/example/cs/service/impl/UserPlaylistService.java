@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -89,12 +90,12 @@ public class UserPlaylistService implements IUserPlaylistService {
         return dto;
     }
 
+    @Transactional
     @Override
     public void addSongToPlaylist(PlaylistSongsDTO playlistSong) {
-        UserPlaylistSongs entity = new UserPlaylistSongs();
-        entity.setUserPlaylistId(playlistSong.getPlaylistId());
-        entity.setSongsId(playlistSong.getSongId());
-        userPlaylistSongsRepository.save(entity);
+        Long userPlaylistId = playlistSong.getPlaylistId();
+        Long songId = playlistSong.getSongId();
+        userPlaylistRepository.addSongToPlaylist(userPlaylistId, songId);
     }
 
     @Override
