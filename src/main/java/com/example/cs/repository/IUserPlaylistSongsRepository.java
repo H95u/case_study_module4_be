@@ -1,9 +1,11 @@
 package com.example.cs.repository;
 
+import com.example.cs.model.UserPlaylist;
 import com.example.cs.model.UserPlaylistSongs;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository

@@ -13,7 +13,7 @@ public class UserPlaylist {
     private Long id;
     private String name;
 
-    @OneToMany
+    @ManyToMany
     private List<Song> song;
 
     @ManyToOne
