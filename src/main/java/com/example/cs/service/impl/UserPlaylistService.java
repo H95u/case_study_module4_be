@@ -93,10 +93,10 @@ public class UserPlaylistService implements IUserPlaylistService {
     @Transactional
     @Override
     public void addSongToPlaylist(PlaylistSongsDTO playlistSong) {
-        UserPlaylistSongs entity = new UserPlaylistSongs();
-        entity.setUserPlaylistId(playlistSong.getPlaylistId());
-        entity.setSongsId(playlistSong.getSongId());
-        userPlaylistSongsRepository.save(entity);
+        Long playlistId = playlistSong.getPlaylistId();
+        Long songId = playlistSong.getSongId();
+
+        userPlaylistRepository.addSongToPlaylist(playlistId, songId);
     }
 
     @Override

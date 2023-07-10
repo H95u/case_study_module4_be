@@ -13,6 +13,9 @@ public class UserPlaylist {
     private Long id;
     private String name;
 
+    @ManyToMany
+    private List<Song> song;
+
     @ManyToOne
     private User user;
 }

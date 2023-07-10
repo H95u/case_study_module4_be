@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface IUserPlaylistSongsRepository extends JpaRepository<UserPlaylistSongs, Long> {
     Optional<UserPlaylistSongs> findByUserPlaylistIdAndSongsId(Long userPlaylistId, Long songsId);
+
 }
