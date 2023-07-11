@@ -100,12 +100,17 @@ public class SongController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Song>> findOne(@PathVariable Long id) {
+        Optional<Song> optionalSong = songService.findOne(id);
+        if (optionalSong.isPresent()) {
+            optionalSong.get().setListenCount(optionalSong.get().getListenCount() + 1);
+            songService.save(optionalSong.get());
+        }
         return new ResponseEntity<>(songService.findOne(id), HttpStatus.OK);
     }
 
     @GetMapping("/search")
     public ResponseEntity<Page<Song>> searchByName(@RequestParam("name") String name,
-                                                   @PageableDefault(size = 10) Pageable pageable){
+                                                   @PageableDefault(size = 10) Pageable pageable) {
         return new ResponseEntity<>(songService.searchByName(name, pageable), HttpStatus.OK);
 
     }
