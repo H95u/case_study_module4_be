@@ -109,9 +109,13 @@ public class SongController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<Song>> searchByName(@RequestParam("name") String name,
-                                                   @PageableDefault(size = 10) Pageable pageable) {
-        return new ResponseEntity<>(songService.searchByName(name, pageable), HttpStatus.OK);
+    public ResponseEntity<?> searchByName(@RequestParam("name") String name,
+                                          @PageableDefault(size = 10) Pageable pageable) {
+        Page<Song> songPage = songService.searchByName(name, pageable);
+        if (songPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(songPage, HttpStatus.OK);
 
     }
 
